@@ -17,8 +17,4 @@ $app['twig'] = $app->extend('twig', function ($twig, $app) {
     return $twig;
 });
 
-$app->get("/{name}",function($name) use ($app) {
-    return "hallo ".$app->escape($name);
-});
-
 return $app;
