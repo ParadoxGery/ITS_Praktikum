@@ -1,0 +1,18 @@
+{
+  "name": "ITS/Praktikum",
+  "description": "ITS_Praktikum",
+  "minimum-stability": "alpha",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "author's name",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "silex/silex": "2.0.x-dev",
+    "symfony/twig-bridge": "3.0.*",
+    "symfony/form": "3.0.*",
+    "symfony/security": "3.0.*"
+  }
+}
