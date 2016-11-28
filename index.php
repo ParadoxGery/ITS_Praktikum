@@ -1,1 +1,1 @@
-<?php require_once './web/index.php'; ?>
+<?php include './web/index.php'; ?>
