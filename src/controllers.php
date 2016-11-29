@@ -11,9 +11,9 @@ $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', array());
 });
 
-$app->get('/user/', function(){return "hallo user";});
+//$app->get('/user/', function(){return "hallo user";});
 
-//$app->mount('/user', new UserController());
+$app->mount('/user', new UserController());
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
