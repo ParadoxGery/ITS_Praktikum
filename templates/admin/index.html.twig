@@ -3,9 +3,14 @@
 {% block title 'admin' %}
 {% block content %}
     <h1>Members</h1>
-	<ul>
+	<table>
+			<tr>
+				<th>username</th><th>mail</th><th>last login</th><th>last pw change</th>
+			</tr>
 		{% for user in users %}
-			<li>{{ user.username|e }}</li>
+			<tr>
+				<td>{{ user.username|e }}</td><td>{{ user.mail|e }}</td><td>{{ user.lastlogin|e }}</td><td>{{ user.pwmodified|e }}</td>
+			</tr>
 		{% endfor %}
-	</ul>
+	</table>
 {% endblock %}
