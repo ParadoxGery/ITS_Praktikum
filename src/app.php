@@ -8,7 +8,7 @@ use Silex\Provider\HttpFragmentServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\FormServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
-use Silex\Provider\LocaleServiceProvider();
+use Silex\Provider\LocaleServiceProvider;
 
 $app = new Application();
 $app->register(new ServiceControllerServiceProvider());
