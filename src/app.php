@@ -14,8 +14,10 @@ $app->register(new ServiceControllerServiceProvider());
 $app->register(new AssetServiceProvider());
 $app->register(new TwigServiceProvider());
 $app->register(new FormServiceProvider());
+$app->register(new Silex\Provider\LocaleServiceProvider());
 $app->register(new TranslationServiceProvider(), array(
 	'translator.domains' => array(),
+	'locale_fallbacks' => "en",
 ));
 $app->register(new DoctrineServiceProvider(), array(
     'db.options' => array(
