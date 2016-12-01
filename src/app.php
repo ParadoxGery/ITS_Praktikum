@@ -6,12 +6,18 @@ use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\ServiceControllerServiceProvider;
 use Silex\Provider\HttpFragmentServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
+use Silex\Provider\FormServiceProvider;
+use Silex\Provider\TranslationServiceProvider;
 
 $app = new Application();
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new AssetServiceProvider());
 $app->register(new TwigServiceProvider());
-$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+$app->register(new FormServiceProvider());
+$app->register(new TranslationServiceProvider(), array(
+	'translator.domains' => array(),
+));
+$app->register(new DoctrineServiceProvider(), array(
     'db.options' => array(
         'driver'   => 'pdo_sqlite',
         'path'     => __DIR__.'/../rhino.db',
