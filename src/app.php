@@ -18,8 +18,6 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 ));
 $app->register(new HttpFragmentServiceProvider());
 $app['twig'] = $app->extend('twig', function ($twig, $app) {
-    // add custom globals, filters, tags, ...
-
     return $twig;
 });
 

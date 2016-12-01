@@ -1,6 +1,7 @@
 <?php
 
 use its\controllers\UserController;
+use its\controllers\AdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,9 +12,8 @@ $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', array());
 });
 
-//$app->get('/user/', function(){return "hallo user";});
-
 $app->mount('/user', new UserController());
+$app->mount('/admin', new AdminController());
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {

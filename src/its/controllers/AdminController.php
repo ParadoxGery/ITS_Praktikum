@@ -5,10 +5,10 @@ use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
-class UserController implements ControllerProviderInterface{
+class AdminController implements ControllerProviderInterface{
 
     public function index(Application $app, Request $request){
-        return $app['twig']->render('user/index.html.twig');
+        return $app['twig']->render('admin/index.html.twig');
     }
 
     /**
@@ -22,7 +22,7 @@ class UserController implements ControllerProviderInterface{
     {
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/', 'its\controllers\UserController::index');
+        $controllers->get('/', 'its\controllers\AdminController::index');
 
         return $controllers;
     }
