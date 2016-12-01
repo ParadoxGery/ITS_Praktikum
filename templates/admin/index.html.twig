@@ -2,8 +2,10 @@
 
 {% block title 'admin' %}
 {% block content %}
-	<form method="post">
-		
+	<form action="#" method="post">
+		{{ form_widget(form) }}
+
+		<input type="submit" name="submit" />
 	</form>
     <h2>Members</h2>
 	<table>
