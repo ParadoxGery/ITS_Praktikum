@@ -14,12 +14,11 @@ $app->register(new TwigServiceProvider());
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
         'driver'   => 'pdo_sqlite',
-        'path'     => __DIR__.'/rhino.db',
+        'path'     => __DIR__.'/../rhino.db',
     ),
 ));
 $app->register(new HttpFragmentServiceProvider());
 $app['twig'] = $app->extend('twig', function ($twig, $app) {
     return $twig;
 });
-$app->boot();
 return $app;

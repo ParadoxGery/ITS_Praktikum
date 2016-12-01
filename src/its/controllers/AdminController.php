@@ -9,7 +9,7 @@ class AdminController implements ControllerProviderInterface{
 
     public function index(Application $app, Request $request){
         $users = $app['db']->fetchAll('SELECT * FROM users');
-
+		
         return $app['twig']->render('admin/index.html.twig', array(
             'users' => $users,
         ));
