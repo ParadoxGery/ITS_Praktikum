@@ -3,7 +3,11 @@
     <head>
         <title>{% block title '' %} - My Silex Application</title>
 
-        <link href="{{ asset('web/css/main.css') }}" rel="stylesheet" type="text/css" />
+        <style>
+			table, th, td {
+				border: dashed black 1px;
+			}
+		</style>
     </head>
     <body>
         {% block content %}{% endblock %}
