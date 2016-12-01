@@ -17,7 +17,7 @@ $app->register(new FormServiceProvider());
 $app->register(new Silex\Provider\LocaleServiceProvider());
 $app->register(new TranslationServiceProvider(), array(
 	'translator.domains' => array(),
-	'locale_fallbacks' => "en",
+	'locale_fallbacks' => array('en'),
 ));
 $app->register(new DoctrineServiceProvider(), array(
     'db.options' => array(
