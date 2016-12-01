@@ -60,7 +60,7 @@ class AdminController implements ControllerProviderInterface{
     {
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/', 'its\controllers\AdminController::index');
+        $controllers->match('/', 'its\controllers\AdminController::index');
 
         return $controllers;
     }
