@@ -11,6 +11,7 @@ use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\SessionServiceProvider;
+use its\user\UserProvider;
 
 $app = new Application();
 $app->register(new ServiceControllerServiceProvider());
@@ -48,7 +49,9 @@ $app->register(new SecurityServiceProvider(), array(
 			'pattern' => '^/user/',
 			'form' => array('login_path' => '/login', 'check_path' => '/user/login_check'),
 			'logout' => array('logout_path' => '/user/logout', 'invalidate_session' => true),
-			'users' => array(),//TODO add user provider
+			'users' => function () use ($app) {
+				return new UserProvider($app['db']);
+			},
 		),
 	),
 	'security.access_rules' => array(
