@@ -61,7 +61,7 @@ class AdminController implements ControllerProviderInterface{
 			$data = $form->getData();
 			$updateData = array();
 			if($data['mail'] != null){
-				updateData['mail'] = $data['mail'];
+				$updateData['mail'] = $data['mail'];
 			}
 			if($data['password'] != null){
 				$updateData['password'] = password_hash($data['password'],PASSWORD_DEFAULT); 
