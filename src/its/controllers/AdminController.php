@@ -50,7 +50,7 @@ class AdminController implements ControllerProviderInterface{
 	
 	public function editUser(Application $app, Request $request, $uid){
 		$userdata = $app['db']->fetchAssoc('SELECT * FROM users WHERE uid = ?',array($uid));
-		if(!$userdata) return new Response('Error', 404 , array('X-Status-Code' => 200));
+		if(!$userdata) $app->abort(404,"user not found");
 		$form = $app['form.factory']->createBuilder(FormType::class, array())
             ->add('mail')
             ->add('password', PasswordType::class)
