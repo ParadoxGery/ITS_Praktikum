@@ -70,7 +70,7 @@ class AdminController implements ControllerProviderInterface{
 			
 			$app['db']->update('users', $updateData, array('uid'=>$uid));
 			
-			$app->redirect('/admin');			
+			return $app->redirect('/admin');			
 		}
 			
 		return $app['twig']->render('admin/userEdit.html.twig', array(
