@@ -61,6 +61,7 @@ class AdminController implements ControllerProviderInterface{
         $controllers = $app['controllers_factory'];
 
         $controllers->match('/', 'its\controllers\AdminController::index');
+		//TODO map new route for editing users
 
         return $controllers;
     }
