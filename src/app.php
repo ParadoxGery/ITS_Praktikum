@@ -10,6 +10,7 @@ use Silex\Provider\FormServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
+use Silex\Provider\SessionServiceProvider;
 
 $app = new Application();
 $app->register(new ServiceControllerServiceProvider());
@@ -31,6 +32,8 @@ $app->register(new HttpFragmentServiceProvider());
 $app['twig'] = $app->extend('twig', function ($twig, $app) {
     return $twig;
 });
+	
+$app->register(new SessionServiceProvider());
 $app->register(new SecurityServiceProvider(), array(
     'security.firewalls' => array(
 		'admin' => array(
@@ -44,7 +47,7 @@ $app->register(new SecurityServiceProvider(), array(
 ));
 
 $app->get('/login', function(Symfony\Component\HttpFoundation\Request $request) use ($app) {
-    return $app['twig']->render('login.html', array(
+    return $app['twig']->render('login.html.twig', array(
         'error'         => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
     ));
