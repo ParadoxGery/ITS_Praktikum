@@ -3,14 +3,12 @@
     <head>
         <title>{% block title '' %} - My Silex Application</title>
 
-        <link href="{{ asset('web/css/main.css') }}" rel="stylesheet" type="text/css" />
-		<style>
-			table, th, td {
-				border: dashed black 1px;
-			}
-		</style>
+        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
         {% block content %}{% endblock %}
     </body>
+
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
 </html>
