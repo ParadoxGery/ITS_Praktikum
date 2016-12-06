@@ -15,14 +15,12 @@ class AdminController implements ControllerProviderInterface{
 
         // some default data for when the form is displayed the first time
         $data = array(
-            'name' => 'name',
-            'email' => 'email',
-            'password' => 'password',
+            
         );
 
         $form = $app['form.factory']->createBuilder(FormType::class, $data)
-            ->add('name')
-            ->add('email')
+            ->add('username')
+            ->add('mail')
             ->add('password')
             ->getForm();
 
@@ -33,8 +31,8 @@ class AdminController implements ControllerProviderInterface{
 
             // do something with the data
             $app['db']->insert('users', array(
-                'username' => $data['name'],
-                'mail' => $data['email'],
+                'username' => $data['username'],
+                'mail' => $data['mail'],
                 'password' => $data['password'],
             ));
 
@@ -48,6 +46,20 @@ class AdminController implements ControllerProviderInterface{
             'form' => $form->createView(),
         ));
     }
+	
+	public function editUser(Application $app, Request $request, $uid){
+		$userdata = $app['db']->fetchAssoc('SELECT * FROM users WHERE uid = ?',array($uid));
+		
+		$form = $app['form.factory']->createBuilder(FormType::class, $userdata)
+            ->add('mail')
+            ->add('password')
+            ->getForm();
+			
+		return $app['twig']->render('admin/userEdit.html.twig', array(
+            'form' => $form->createView(),
+			'username' => $userdata['username'],
+        ));
+	}
 
     /**
      * Returns routes to connect to the given application.
@@ -61,7 +73,7 @@ class AdminController implements ControllerProviderInterface{
         $controllers = $app['controllers_factory'];
 
         $controllers->match('/', 'its\controllers\AdminController::index');
-		//TODO map new route for editing users
+		$controllers->match('/{uid}', 'its\controllers\AdminController::editUser');
 
         return $controllers;
     }
