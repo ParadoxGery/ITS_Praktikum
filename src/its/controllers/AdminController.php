@@ -57,7 +57,7 @@ class AdminController implements ControllerProviderInterface{
 			
 		if ($form->isValid()){
 			$data = $form->getData();
-			
+			echo $data;
 			$app['db']->update('users', $data, array('id'=>$uid));
 		}
 			
