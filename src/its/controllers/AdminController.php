@@ -59,7 +59,16 @@ class AdminController implements ControllerProviderInterface{
 		
 		if ($form->isValid()){
 			$data = $form->getData();
-			$app['db']->update('users', $data, array('uid'=>$uid));
+			$updateData = array();
+			if($data['mail'] != null){
+				updateData['mail'] = $data['mail'];
+			}
+			if($data['password'] != null){
+				$updateData['password'] = password_hash($data['password'],PASSWORD_DEFAULT); 
+				$updateData['pwmodified'] = date("Y-m-d H:i:s");
+			}
+			
+			$app['db']->update('users', $updateData, array('uid'=>$uid));
 		}
 			
 		return $app['twig']->render('admin/userEdit.html.twig', array(
