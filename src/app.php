@@ -39,11 +39,22 @@ $app->register(new SecurityServiceProvider(), array(
 		'admin' => array(
 			'pattern' => '^/admin/',
 			'form' => array('login_path' => '/login', 'check_path' => '/admin/login_check'),
+			'logout' => array('logout_path' => '/admin/logout', 'invalidate_session' => true),
 			'users' => array(
 				'admin' => array('ROLE_ADMIN', '$2y$10$6KLCXtg/2pVYD0cNkUXjxODbnDYAJsI9cZPXfAxTFw46FYdJmy6Nu'),
 			),
 		),
-	)
+		'users' => array(
+			'pattern' => '^/user/',
+			'form' => array('login_path' => '/login', 'check_path' => '/user/login_check'),
+			'logout' => array('logout_path' => '/user/logout', 'invalidate_session' => true),
+			'users' => array(),//TODO add user provider
+		),
+	),
+	'security.access_rules' => array(
+		array('^/admin', 'ROLE_ADMIN', 'https'),
+		array('^/user', 'ROLE_USER', 'https'),
+	),
 ));
 
 $app->get('/login', function(Symfony\Component\HttpFoundation\Request $request) use ($app) {
