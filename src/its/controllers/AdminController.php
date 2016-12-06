@@ -33,7 +33,7 @@ class AdminController implements ControllerProviderInterface{
             $app['db']->insert('users', array(
                 'username' => $data['username'],
                 'mail' => $data['mail'],
-                'password' => $data['password'],
+                'password' => password_hash($data['password'],PASSWORD_DEFAULT),
             ));
 
             // redirect somewhere
@@ -78,6 +78,11 @@ class AdminController implements ControllerProviderInterface{
 			'username' => $userdata['username'],
         ));
 	}
+	
+	public function deleteUser(Application $app, Request $request, $uid){
+		$app['db']->delete('users', array('uid'=>$uid));
+		return $app->redirect('/admin');
+	}
 
     /**
      * Returns routes to connect to the given application.
@@ -91,6 +96,8 @@ class AdminController implements ControllerProviderInterface{
         $controllers = $app['controllers_factory'];
 
         $controllers->match('/', 'its\controllers\AdminController::index');
+		
+		$controllers->delete('/{uid}', 'its\controllers\AdminController::deleteUser');
 		$controllers->match('/{uid}', 'its\controllers\AdminController::editUser');
 
         return $controllers;

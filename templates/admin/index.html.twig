@@ -10,11 +10,15 @@
     <h2>Members</h2>
 	<table class="table table-striped">
 			<tr>
-				<th>username</th><th>mail</th><th>last login</th><th>last pw change</th>
+				<th>username</th><th>mail</th><th>last login</th><th>last pw change</th><th>delete</th>
 			</tr>
 		{% for user in users %}
 			<tr>
-				<td><a href="/admin/{{user.uid}}">{{ user.username|e }}</a></td><td>{{ user.mail|e }}</td><td>{{ user.lastlogin|e }}</td><td>{{ user.pwmodified|e }}</td>
+				<td><a href="/admin/{{ user.uid }}">{{ user.username|e }}</a></td>
+				<td>{{ user.mail|e }}</td>
+				<td>{{ user.lastlogin|e }}</td>
+				<td>{{ user.pwmodified|e }}</td>
+				<td><a class="btn btn-danger" data-method="delete" href="/admin/{{ user.uid }}">delete</a></td>
 			</tr>
 		{% endfor %}
 	</table>
