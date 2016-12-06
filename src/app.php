@@ -12,6 +12,7 @@ use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use its\user\UserProvider;
+use its\user\UserPasswordEncoder;
 
 $app = new Application();
 $app->register(new ServiceControllerServiceProvider());
@@ -58,6 +59,9 @@ $app->register(new SecurityServiceProvider(), array(
 		array('^/admin', 'ROLE_ADMIN', 'https'),
 		array('^/user', 'ROLE_USER', 'https'),
 	),
+	'security.default_encoder' => function($app) {
+		return new UserPasswordEncoder();
+	},
 ));
 
 $app->get('/login', function(Symfony\Component\HttpFoundation\Request $request) use ($app) {
