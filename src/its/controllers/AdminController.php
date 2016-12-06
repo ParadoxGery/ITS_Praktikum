@@ -55,6 +55,12 @@ class AdminController implements ControllerProviderInterface{
             ->add('password')
             ->getForm();
 			
+		if ($form->isValid()){
+			$data = $form->getData();
+			
+			$app['db']->update('users', $data, array('id'=>$uid));
+		}
+			
 		return $app['twig']->render('admin/userEdit.html.twig', array(
             'form' => $form->createView(),
 			'username' => $userdata['username'],
