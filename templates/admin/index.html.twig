@@ -14,7 +14,7 @@
 			</tr>
 		{% for user in users %}
 			<tr>
-				<td>{{ user.username|e }}</td><td>{{ user.mail|e }}</td><td>{{ user.lastlogin|e }}</td><td>{{ user.pwmodified|e }}</td>
+				<td><a href="/admin/{{user.uid}}">{{ user.username|e }}</a></td><td>{{ user.mail|e }}</td><td>{{ user.lastlogin|e }}</td><td>{{ user.pwmodified|e }}</td>
 			</tr>
 		{% endfor %}
 	</table>
