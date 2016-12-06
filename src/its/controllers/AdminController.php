@@ -21,7 +21,7 @@ class AdminController implements ControllerProviderInterface{
         $form = $app['form.factory']->createBuilder(FormType::class, $data)
             ->add('username')
             ->add('mail')
-            ->add('password')
+            ->add('password', PasswordType::class)
             ->getForm();
 
         $form->handleRequest($request);
@@ -52,13 +52,14 @@ class AdminController implements ControllerProviderInterface{
 		
 		$form = $app['form.factory']->createBuilder(FormType::class, $userdata)
             ->add('mail')
-            ->add('password')
+            ->add('password', PasswordType::class)
             ->getForm();
-			
+		
+		$form->handleRequest($request);
+		
 		if ($form->isValid()){
 			$data = $form->getData();
-			echo $data;
-			$app['db']->update('users', $data, array('id'=>$uid));
+			$app['db']->update('users', $data, array('uid'=>$uid));
 		}
 			
 		return $app['twig']->render('admin/userEdit.html.twig', array(
