@@ -97,7 +97,7 @@ class AdminController implements ControllerProviderInterface{
 
         $controllers->match('/', 'its\controllers\AdminController::index');
 		
-		$controllers->delete('/{uid}', 'its\controllers\AdminController::deleteUser');
+		$controllers->get('/{uid}/delete', 'its\controllers\AdminController::deleteUser');
 		$controllers->match('/{uid}', 'its\controllers\AdminController::editUser');
 
         return $controllers;
