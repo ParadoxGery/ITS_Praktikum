@@ -2,6 +2,7 @@
 
 {% block title 'index' %}
 {% block content %}
+    {{ check_path }}
     <form action="{{ path('admin_login_check') }}" method="post">
     {{ error }}
     <input type="text" name="_username" value="{{ last_username }}" />

@@ -59,10 +59,10 @@ $app->register(new SecurityServiceProvider(), array(
 		array('^/admin', 'ROLE_ADMIN', 'https'),
 		array('^/user', 'ROLE_USER', 'https'),
 	),
-	'security.default_encoder' => function($app) {
-		return new UserPasswordEncoder();
-	},
 ));
+$app['security.default_encoder'] = function($app) {
+	return new UserPasswordEncoder();
+};
 
 $app->get('/login', function(Symfony\Component\HttpFoundation\Request $request) use ($app) {
     return $app['twig']->render('login.html.twig', array(
