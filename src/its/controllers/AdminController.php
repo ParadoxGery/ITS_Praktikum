@@ -85,6 +85,13 @@ class AdminController implements ControllerProviderInterface{
 		return $app->redirect('/admin');
 	}
 
+	public function login(Application $app, Request $request){
+		return $app['twig']->render('login.html.twig', array(
+			'error'         => $app['security.last_error']($request),
+			'last_username' => $app['session']->get('_security.last_username'),
+		));
+	}
+
     /**
      * Returns routes to connect to the given application.
      *
@@ -100,6 +107,8 @@ class AdminController implements ControllerProviderInterface{
 		
 		$controllers->get('/{uid}/delete', 'its\controllers\AdminController::deleteUser');
 		$controllers->match('/{uid}', 'its\controllers\AdminController::editUser');
+
+		$controllers->match('/login', 'its\controllers\AdminController::login');
 
         return $controllers;
     }

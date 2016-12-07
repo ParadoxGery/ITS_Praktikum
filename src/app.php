@@ -41,7 +41,7 @@ $app->register(new SecurityServiceProvider(), array(
     'security.firewalls' => array(
 		'admin' => array(
 			'pattern' => '^/admin/',
-			'form' => array('login_path' => '/login', 'check_path' => '/admin/login_check'),
+			'form' => array('login_path' => '/admin/login', 'check_path' => '/admin/login_check'),
 			'logout' => array('logout_path' => '/admin/logout', 'invalidate_session' => true),
 			'users' => array(
 				'admin' => array('ROLE_ADMIN', '$2y$10$6KLCXtg/2pVYD0cNkUXjxODbnDYAJsI9cZPXfAxTFw46FYdJmy6Nu'),
