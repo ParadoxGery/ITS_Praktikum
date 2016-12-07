@@ -39,22 +39,22 @@ $app['twig'] = $app->extend('twig', function ($twig, $app) {
 $app->register(new SessionServiceProvider());
 $app->register(new SecurityServiceProvider(), array(
     'security.firewalls' => array(
-		/*'admin' => array(
+		'admin' => array(
 			'pattern' => '^/admin/',
 			'form' => array('login_path' => '/login', 'check_path' => '/admin/login_check'),
 			'logout' => array('logout_path' => '/admin/logout', 'invalidate_session' => true),
 			'users' => array(
 				'admin' => array('ROLE_ADMIN', '$2y$10$6KLCXtg/2pVYD0cNkUXjxODbnDYAJsI9cZPXfAxTFw46FYdJmy6Nu'),
 			),
-		),*/
-		'secured' => array(
+		),
+		/*'secured' => array(
 			'pattern' => '^/(user|admin)',
 			'form' => array('login_path' => '/login', 'check_path' => '/login/login_check'),
 			'logout' => array('logout_path' => '/login/logout', 'invalidate_session' => true),
 			'users' => function () use ($app) {
 				return new UserProvider($app['db']);
 			},
-		),
+		),*/
 	),
 	'security.access_rules' => array(
 		array('^/admin', 'ROLE_ADMIN', 'https'),
