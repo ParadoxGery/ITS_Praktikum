@@ -2,7 +2,7 @@
 
 {% block title 'index' %}
 {% block content %}
-    <form action="{{ path('login_login_check') }}" method="post">
+    <form action="{{ path('admin_login_check') }}" method="post">
     {{ error }}
     <input type="text" name="_username" value="{{ last_username }}" />
     <input type="password" name="_password" value="" />
