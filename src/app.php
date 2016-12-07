@@ -61,9 +61,6 @@ $app->register(new SecurityServiceProvider(), array(
 		array('^/user', 'ROLE_USER', 'https'),
 	),
 ));
-$app['security.default_encoder'] = function($app) {
-	return array(new UserPasswordEncoder());
-};
 
 $app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('login.html.twig', array(
