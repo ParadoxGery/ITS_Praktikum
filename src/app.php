@@ -62,7 +62,7 @@ $app->register(new SecurityServiceProvider(), array(
 	),
 ));
 $app['security.default_encoder'] = function($app) {
-	return new UserPasswordEncoder();
+	return array(new UserPasswordEncoder());
 };
 
 $app->get('/login', function(Request $request) use ($app) {
