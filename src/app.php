@@ -49,8 +49,8 @@ $app->register(new SecurityServiceProvider(), array(
 		),*/
 		'secured' => array(
 			'pattern' => '^/(user|admin)',
-			'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
-			'logout' => array('logout_path' => '/logout', 'invalidate_session' => true),
+			'form' => array('login_path' => '/login', 'check_path' => 'login/login_check'),
+			'logout' => array('logout_path' => 'login/logout', 'invalidate_session' => true),
 			'users' => function () use ($app) {
 				return new UserProvider($app['db']);
 			},
