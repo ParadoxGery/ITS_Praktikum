@@ -41,20 +41,20 @@ $app->register(new SecurityServiceProvider(), array(
     'security.firewalls' => array(
 		'admin' => array(
 			'pattern' => '^/admin/',
-			'form' => array('login_path' => '/admin/login', 'check_path' => '/admin/login_check'),
+			'form' => array('login_path' => '/login/admin', 'check_path' => '/admin/login_check'),
 			'logout' => array('logout_path' => '/admin/logout', 'invalidate_session' => true),
 			'users' => array(
 				'admin' => array('ROLE_ADMIN', '$2y$10$6KLCXtg/2pVYD0cNkUXjxODbnDYAJsI9cZPXfAxTFw46FYdJmy6Nu'),
 			),
 		),
-		/*'secured' => array(
-			'pattern' => '^/(user|admin)',
-			'form' => array('login_path' => '/login', 'check_path' => '/login/login_check'),
-			'logout' => array('logout_path' => '/login/logout', 'invalidate_session' => true),
+		'secured' => array(
+			'pattern' => '^/user',
+			'form' => array('login_path' => '/login/user', 'check_path' => '/user/login_check'),
+			'logout' => array('logout_path' => '/user/logout', 'invalidate_session' => true),
 			'users' => function () use ($app) {
 				return new UserProvider($app['db']);
 			},
-		),*/
+		),
 	),
 	'security.access_rules' => array(
 		array('^/admin', 'ROLE_ADMIN', 'https'),
@@ -62,8 +62,9 @@ $app->register(new SecurityServiceProvider(), array(
 	),
 ));
 
-$app->get('/login', function(Request $request) use ($app) {
-    return $app['twig']->render('login.html.twig', array(
+$app->get('/login/{role}', function(Request $request,$role) use ($app) {
+	if($role!="admin"||$role!="user") $app->abort(404);
+    return $app['twig']->render($role.'/login.html.twig', array(
         'error'         => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
     ));
