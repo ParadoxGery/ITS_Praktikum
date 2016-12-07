@@ -13,6 +13,7 @@ use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use its\user\UserProvider;
 use its\user\UserPasswordEncoder;
+use Symfony\Component\HttpFoundation\Request;
 
 $app = new Application();
 $app->register(new ServiceControllerServiceProvider());
@@ -38,18 +39,18 @@ $app['twig'] = $app->extend('twig', function ($twig, $app) {
 $app->register(new SessionServiceProvider());
 $app->register(new SecurityServiceProvider(), array(
     'security.firewalls' => array(
-		'admin' => array(
+		/*'admin' => array(
 			'pattern' => '^/admin/',
 			'form' => array('login_path' => '/login', 'check_path' => '/admin/login_check'),
 			'logout' => array('logout_path' => '/admin/logout', 'invalidate_session' => true),
 			'users' => array(
 				'admin' => array('ROLE_ADMIN', '$2y$10$6KLCXtg/2pVYD0cNkUXjxODbnDYAJsI9cZPXfAxTFw46FYdJmy6Nu'),
 			),
-		),
-		'users' => array(
-			'pattern' => '^/user/',
-			'form' => array('login_path' => '/login', 'check_path' => '/user/login_check'),
-			'logout' => array('logout_path' => '/user/logout', 'invalidate_session' => true),
+		),*/
+		'secured' => array(
+			'pattern' => '^/*/',
+			'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
+			'logout' => array('logout_path' => '/logout', 'invalidate_session' => true),
 			'users' => function () use ($app) {
 				return new UserProvider($app['db']);
 			},
@@ -64,7 +65,7 @@ $app['security.default_encoder'] = function($app) {
 	return new UserPasswordEncoder();
 };
 
-$app->get('/login', function(Symfony\Component\HttpFoundation\Request $request) use ($app) {
+$app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('login.html.twig', array(
         'error'         => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),

