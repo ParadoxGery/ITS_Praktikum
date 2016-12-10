@@ -1,28 +1,33 @@
 <?php
 
 namespace its\controllers;
+use Doctrine\DBAL\Types\TextType;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AdminController implements ControllerProviderInterface{
 
     public function index(Application $app, Request $request){
         $users = $app['db']->fetchAll('SELECT * FROM users');
 
-
-        // some default data for when the form is displayed the first time
-        $data = array(
-            
-        );
+        $data = array();
 
         $form = $app['form.factory']->createBuilder(FormType::class, $data)
-            ->add('username')
-            ->add('mail')
-            ->add('password', PasswordType::class)
+            ->add('username', TextType::class, array(
+                'constraints' => array(new NotBlank(), new Length(array('min' => 5)))
+            ))
+            ->add('mail', TextType::class, array(
+                'constraints' => new Email()
+            ))
+            ->add('password', PasswordType::class, array(
+                'constraints' => array(new NotBlank(), new Length(array('min' => 5)))
+            ))
             ->getForm();
 
         $form->handleRequest($request);
@@ -52,8 +57,14 @@ class AdminController implements ControllerProviderInterface{
 		$userdata = $app['db']->fetchAssoc('SELECT * FROM users WHERE uid = ?',array($uid));
 		if(!$userdata) $app->abort(404,"user not found");
 		$form = $app['form.factory']->createBuilder(FormType::class, array())
-            ->add('mail')
-            ->add('password', PasswordType::class)
+            ->add('mail', TextType::class, array(
+                'required' => false,
+                'constraints' => new Email()
+            ))
+            ->add('password', PasswordType::class, array(
+                'required' => false,
+                'constraints' => array(new NotBlank(), new Length(array('min' => 5)))
+            ))
             ->getForm();
 		
 		$form->handleRequest($request);
@@ -85,13 +96,6 @@ class AdminController implements ControllerProviderInterface{
 		return $app->redirect('/admin');
 	}
 
-	public function login(Application $app, Request $request){
-		return $app['twig']->render('admin/login.html.twig', array(
-			'error'         => $app['security.last_error']($request),
-			'last_username' => $app['session']->get('_security.last_username'),
-		));
-	}
-
     /**
      * Returns routes to connect to the given application.
      *
@@ -107,8 +111,6 @@ class AdminController implements ControllerProviderInterface{
 		
 		$controllers->get('/{uid}/delete', 'its\controllers\AdminController::deleteUser');
 		$controllers->match('/{uid}', 'its\controllers\AdminController::editUser');
-
-		$controllers->match('/login', 'its\controllers\AdminController::login');
 
         return $controllers;
     }
