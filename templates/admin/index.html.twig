@@ -11,7 +11,7 @@
     <h2>Members</h2>
 	<table class="table table-striped">
 			<tr>
-				<th>username</th><th>mail</th><th>last login</th><th>last pw change</th><th>delete</th>
+				<th>username</th><th>mail</th><th>last login</th><th>last pw change</th><th>active</th><th>delete</th>
 			</tr>
 		{% for user in users %}
 			<tr>
@@ -19,6 +19,7 @@
 				<td>{{ user.mail|e }}</td>
 				<td>{{ user.lastlogin|e }}</td>
 				<td>{{ user.pwmodified|e }}</td>
+				<td>{{ user.active }}</td>
 				<td><a class="btn btn-danger" data-method="delete" href="/admin/{{ user.uid }}/delete">delete</a></td>
 			</tr>
 		{% endfor %}
