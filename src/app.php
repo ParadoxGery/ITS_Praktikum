@@ -1,18 +1,18 @@
 <?php
 
+use its\user\UserProvider;
 use Silex\Application;
 use Silex\Provider\AssetServiceProvider;
-use Silex\Provider\TwigServiceProvider;
-use Silex\Provider\ServiceControllerServiceProvider;
-use Silex\Provider\HttpFragmentServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\FormServiceProvider;
-use Silex\Provider\TranslationServiceProvider;
+use Silex\Provider\HttpFragmentServiceProvider;
 use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
+use Silex\Provider\ServiceControllerServiceProvider;
 use Silex\Provider\SessionServiceProvider;
-use its\user\UserProvider;
-use its\user\UserPasswordEncoder;
+use Silex\Provider\TranslationServiceProvider;
+use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\ValidatorServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 
 $app = new Application();
@@ -20,6 +20,7 @@ $app->register(new ServiceControllerServiceProvider());
 $app->register(new AssetServiceProvider());
 $app->register(new TwigServiceProvider());
 $app->register(new FormServiceProvider());
+$app->register(new ValidatorServiceProvider());
 $app->register(new LocaleServiceProvider());
 $app->register(new TranslationServiceProvider(), array(
 	'translator.domains' => array(),
