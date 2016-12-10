@@ -3,6 +3,7 @@
 namespace its\controllers;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,7 +22,13 @@ class AdminController implements ControllerProviderInterface{
 
         $form = $app['form.factory']->createBuilder(FormType::class, $data)
             ->add('username', TextType::class, array(
-                'constraints' => array(new NotBlank(), new Length(array('min' => 5)))
+                'constraints' => array(
+                    new NotBlank(),
+                    new Length(array('min' => 5)),
+                    new UniqueEntity(array(
+                        'fields' => 'username'
+                    ))
+                )
             ))
             ->add('mail', TextType::class, array(
                 'constraints' => new Email()
@@ -74,8 +81,8 @@ class AdminController implements ControllerProviderInterface{
                 'required' => false,
                 'constraints' => array(
                     new Regex(array(
-                        'pattern' => "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,255})",
-                        'message' => 'lenth:8,didgits:1,lower:1,upper:1,special:1| @ $ % # a-z A-Z 0-9'
+                        'pattern' => "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%?!]).{8,255})",
+                        'message' => 'lenth:8,didgits:1,lower:1,upper:1,special:1| @ $ % # ? ! a-z A-Z 0-9'
                     ))
                 )
             ))
