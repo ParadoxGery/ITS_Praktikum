@@ -44,14 +44,15 @@ class AdminController implements ControllerProviderInterface{
         if ($form->isValid()) {
             $data = $form->getData();
 
-            // do something with the data
             $app['db']->insert('users', array(
                 'username' => $data['username'],
                 'mail' => $data['mail'],
                 'password' => password_hash($data['password'],PASSWORD_DEFAULT),
             ));
 
-            // redirect somewhere
+            $userdata = $app['db']->fetchAssoc('SELECT * FROM users WHERE username = ?',array($data['username']));
+            $app['generateMailLink']->generateMailLink($userdata['uid']);
+
             return $app->redirect('/admin');
         }
 
