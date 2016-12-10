@@ -17,13 +17,15 @@ class User implements UserInterface
     private $password;
     private $role;
     private $mail;
+    private $isActivated;
 
-    public function __construct($username, $password, $role, $mail)
+    public function __construct($username, $password, $role, $mail, $isActivated)
     {
         $this->username = $username;
         $this->password = $password;
         $this->role = $role;
         $this->mail = $mail;
+        $this->isActivated = $isActivated != 0;
     }
 
     public function getRoles()
@@ -51,7 +53,10 @@ class User implements UserInterface
         return $this->mail;
     }
 
-
+    public function getIsActivated()
+    {
+        return $this->isActivated;
+    }
 
     public function eraseCredentials()
     {

@@ -20,6 +20,11 @@ class UserController implements ControllerProviderInterface
         if (null !== $token) {
             $user = $token->getUser();
 
+            if ($user->getIsActivated) {
+                $app['session']->getFlashBag()->add('not activated', 'please activate your account');
+                return $app->redirect('/');
+            }
+
             $updateData = array(
                 'lastlogin' => date("Y-m-d H:i:s")
             );

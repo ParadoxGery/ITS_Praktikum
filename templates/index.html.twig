@@ -7,6 +7,12 @@
     <a class="btn btn-info" href="/user">User Bereich</a>
     <a class="btn btn-warning" href="/admin">Admin Bereich</a>
 
+    {% for alert in app.session.flashbag.get('not activated') %}
+        <div class="error-message">
+            <div class="alert"><strong>{{ alert }}</strong></div>
+        </div>
+    {% endfor %}
+
     <h2>Mail Links</h2>
     <table class="table table-striped">
         <tr>
