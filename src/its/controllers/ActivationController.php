@@ -27,7 +27,7 @@ class ActivationController implements ControllerProviderInterface
         $date = date("Y-m-d H:i:s");
         var_dump($date);
         var_dump($activation['expires']);
-        if($date<date($activation['expires'])){
+        if(strtotime($date)<strtotime($activation['expires'])){
             $app['db']->update('users', array('active' => 1), array('uid'=>$uid));
             $app['db']->update('mailcodes', array('used' => 1), array('link'=>$code));
 
