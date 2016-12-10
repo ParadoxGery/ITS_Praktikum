@@ -91,6 +91,8 @@ class AdminController implements ControllerProviderInterface{
 			$updateData = array();
 			if($data['mail'] != null){
 				$updateData['mail'] = $data['mail'];
+				$updateData['active'] = 0;
+				$app['generateMailLink']->generateMailLink($uid);
 			}
 			if($data['password'] != null){
 				$updateData['password'] = password_hash($data['password'],PASSWORD_DEFAULT); 

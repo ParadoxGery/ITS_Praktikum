@@ -1,5 +1,6 @@
 <?php
 
+use its\services\MailLinkGeneratorService;
 use its\user\UserProvider;
 use Silex\Application;
 use Silex\Provider\AssetServiceProvider;
@@ -69,6 +70,10 @@ $app->get('/login/{role}', function(Request $request,$role) use ($app) {
         'error'         => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
     ));
+});
+
+$app['generateMailLink'] = $app->factory(function ($app) {
+    return new MailLinkGeneratorService($app['db']);
 });
 
 return $app;
