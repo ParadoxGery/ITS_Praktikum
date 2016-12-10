@@ -25,7 +25,7 @@ class User implements UserInterface
         $this->password = $password;
         $this->role = $role;
         $this->mail = $mail;
-        $this->isActivated = $isActivated != 0;
+        $this->isActivated = $isActivated;
     }
 
     public function getRoles()
