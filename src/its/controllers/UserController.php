@@ -19,10 +19,10 @@ class UserController implements ControllerProviderInterface
         $token = $app['security.token_storage']->getToken();
         if (null !== $token) {
             $user = $token->getUser();
-            var_dump($user->getIsActivated() != "1");
-            $active = $user->getIsActivated() != "1";
 
-            if ($active) {
+            $notActive = $user->getIsActivated() != "1";
+
+            if ($notActive) {
                 $app['session']->getFlashBag()->add('not_activated', 'please activate your account');
                 return $app->redirect('/');
             }
@@ -56,6 +56,9 @@ class UserController implements ControllerProviderInterface
             $updateData = array();
             if($data['mail'] != null){
                 $updateData['mail'] = $data['mail'];
+                $updateData['active'] = 0;
+                $userdata = $app['db']->fetchAssoc('SELECT * FROM users WHERE username = ?',array($user->getUsername()));
+                $app['generateMailLink']->generateMailLink($userdata['uid']);
             }
             if($data['password'] != null){
                 $updateData['password'] = password_hash($data['password'],PASSWORD_DEFAULT);
