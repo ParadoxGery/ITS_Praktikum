@@ -1,11 +1,11 @@
 <?php
 
 namespace its\controllers;
-use Doctrine\DBAL\Types\TextType;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
@@ -54,8 +54,11 @@ class AdminController implements ControllerProviderInterface{
     }
 	
 	public function editUser(Application $app, Request $request, $uid){
+        //get userdata
 		$userdata = $app['db']->fetchAssoc('SELECT * FROM users WHERE uid = ?',array($uid));
+
 		if(!$userdata) $app->abort(404,"user not found");
+
 		$form = $app['form.factory']->createBuilder(FormType::class, array())
             ->add('mail', TextType::class, array(
                 'required' => false,
@@ -103,7 +106,7 @@ class AdminController implements ControllerProviderInterface{
      *
      * @return \Silex\ControllerCollection A ControllerCollection instance
      */
-    public function connect(\Silex\Application $app)
+    public function connect(Application $app)
     {
         $controllers = $app['controllers_factory'];
 
