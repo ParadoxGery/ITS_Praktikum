@@ -25,7 +25,8 @@ class ActivationController implements ControllerProviderInterface
         if($activation['used'] != 0) $app->abort(403); //TODO better error message
 
         $date = date("Y-m-d H:i:s");
-
+        var_dump($date);
+        var_dump($activation['expires']);
         if($date<date($activation['expires'])){
             $app['db']->update('users', array('active' => 1), array('uid'=>$uid));
             $app['db']->update('mailcodes', array('used' => 1), array('link'=>$code));
