@@ -1,5 +1,6 @@
 <?php
 
+use its\controllers\ActivationController;
 use its\controllers\UserController;
 use its\controllers\AdminController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,7 @@ $app->get('/', function () use ($app) {
 
 $app->mount('/user', new UserController());
 $app->mount('/admin', new AdminController());
+$app->mount('/activate', new ActivationController());
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
