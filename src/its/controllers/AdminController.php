@@ -16,6 +16,7 @@ class AdminController implements ControllerProviderInterface{
 
     public function index(Application $app, Request $request){
         $users = $app['db']->fetchAll('SELECT * FROM users');
+        $mailactivations = $app['db']->fetchAll('SELECT * FROM mailcodes WHERE used = 0');
 
         $data = array();
 
@@ -59,6 +60,7 @@ class AdminController implements ControllerProviderInterface{
         return $app['twig']->render('admin/index.html.twig', array(
             'users' => $users,
             'form' => $form->createView(),
+            'mailcodes' => $mailactivations,
         ));
     }
 	

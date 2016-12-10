@@ -2,26 +2,48 @@
 
 {% block title 'admin' %}
 {% block content %}
-	<a class="btn btn-info" href="/admin/logout">Logout</a>
-	<form action="#" method="post">
-		{{ form_widget(form) }}
+    <a class="btn btn-info" href="/admin/logout">Logout</a>
+    <form action="#" method="post">
+        {{ form_widget(form) }}
 
-		<input type="submit" name="submit" />
-	</form>
+        <input type="submit" name="submit"/>
+    </form>
+    <h2>Mail Links</h2>
+    <table class="table table-striped">
+        <tr>
+			<th>link</th>
+            <th>uid</th>
+            <th>expires</th>
+        </tr>
+        {% for mailcode in mailcodes %}
+            <tr>
+                <td><a href="/activate/mail/{{ mailcode.uid }}/{{ mailcode.link }}">{{ mailcode.link }}</a></td>
+                <td>{{ mailcode.uid }}</td>
+                <td>{{ mailcode.expires }}</td>
+            </tr>
+        {% endfor %}
+    </table>
     <h2>Members</h2>
-	<table class="table table-striped">
-			<tr>
-				<th>username</th><th>mail</th><th>last login</th><th>last pw change</th><th>active</th><th>delete</th>
-			</tr>
-		{% for user in users %}
-			<tr>
-				<td><a href="/admin/{{ user.uid }}">{{ user.username|e }}</a></td>
-				<td>{{ user.mail|e }}</td>
-				<td>{{ user.lastlogin|e }}</td>
-				<td>{{ user.pwmodified|e }}</td>
-				<td>{{ user.active }}</td>
-				<td><a class="btn btn-danger" data-method="delete" href="/admin/{{ user.uid }}/delete">delete</a></td>
-			</tr>
-		{% endfor %}
-	</table>
+    <table class="table table-striped">
+        <tr>
+            <th>uid</th>
+            <th>username</th>
+            <th>mail</th>
+            <th>last login</th>
+            <th>last pw change</th>
+            <th>active</th>
+            <th>delete</th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.uid }}</td>
+                <td><a href="/admin/{{ user.uid }}">{{ user.username|e }}</a></td>
+                <td>{{ user.mail|e }}</td>
+                <td>{{ user.lastlogin|e }}</td>
+                <td>{{ user.pwmodified|e }}</td>
+                <td>{{ user.active }}</td>
+                <td><a class="btn btn-danger" data-method="delete" href="/admin/{{ user.uid }}/delete">delete</a></td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
