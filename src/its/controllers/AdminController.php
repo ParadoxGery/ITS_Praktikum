@@ -74,8 +74,8 @@ class AdminController implements ControllerProviderInterface{
                 'required' => false,
                 'constraints' => array(
                     new Regex(array(
-                        'pattern' => '^(?=.{8})(?=.*[A-Z])(?=.*[a-z])(?=.*\d.*\d.*\d)(?=.*[^a-zA-Z\d].*[^a-zA-Z\d].*[^a-zA-Z\d])[-+%#a-zA-Z\d]+$',
-                        'message' => 'lenth:8,didgits:3,lower:1,upper:1,special:3| - + % # a-z A-Z 0-9'
+                        'pattern' => "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,255})",
+                        'message' => 'lenth:8,didgits:1,lower:1,upper:1,special:1| @ $ % # a-z A-Z 0-9'
                     ))
                 )
             ))
