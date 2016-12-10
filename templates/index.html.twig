@@ -6,4 +6,20 @@
 
     <a class="btn btn-info" href="/user">User Bereich</a>
     <a class="btn btn-warning" href="/admin">Admin Bereich</a>
+
+    <h2>Mail Links</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>link</th>
+            <th>uid</th>
+            <th>expires</th>
+        </tr>
+        {% for mailcode in mailcodes %}
+            <tr>
+                <td><a href="/activate/mail/{{ mailcode.uid }}/{{ mailcode.link }}">{{ mailcode.link }}</a></td>
+                <td>{{ mailcode.uid }}</td>
+                <td>{{ mailcode.expires }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

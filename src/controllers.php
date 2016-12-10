@@ -10,7 +10,10 @@ Request::setTrustedProxies(array('127.0.0.1'));
 
 
 $app->get('/', function () use ($app) {
-    return $app['twig']->render('index.html.twig', array());
+    $mailactivations = $app['db']->fetchAll('SELECT * FROM mailcodes WHERE used = 0');
+    return $app['twig']->render('index.html.twig', array(
+        'mailcodes' => $mailactivations,
+    ));
 });
 
 $app->mount('/user', new UserController());
