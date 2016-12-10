@@ -8,8 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController implements ControllerProviderInterface{
 
     public function index(Application $app, Request $request){
-		//TODO fetch user data display form
-		
+        $token = $app['security.token_storage']->getToken();
+        if (null !== $token) {
+            $user = $token->getUser();
+        }
+		echo $user->getUsername();
         return $app['twig']->render('user/index.html.twig');
     }
 

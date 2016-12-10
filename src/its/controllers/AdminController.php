@@ -8,10 +8,12 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class AdminController implements ControllerProviderInterface{
 
@@ -24,10 +26,7 @@ class AdminController implements ControllerProviderInterface{
             ->add('username', TextType::class, array(
                 'constraints' => array(
                     new NotBlank(),
-                    new Length(array('min' => 5)),
-                    new UniqueEntity(array(
-                        'fields' => 'username'
-                    ))
+                    new Length(array('min' => 5))
                 )
             ))
             ->add('mail', TextType::class, array(
