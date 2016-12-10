@@ -20,6 +20,11 @@ class UserController implements ControllerProviderInterface
         if (null !== $token) {
             $user = $token->getUser();
 
+            $updateData = array(
+                'lastlogin' => date("Y-m-d H:i:s")
+            );
+            $app['db']->update('users', $updateData, array('username'=>$user->getUsername()));
+
             $form = $app['form.factory']->createBuilder(FormType::class, array())
                 ->add('mail', TextType::class, array(
                     'required' => false,
