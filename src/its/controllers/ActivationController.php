@@ -22,7 +22,7 @@ class ActivationController implements ControllerProviderInterface
         $userdata = $app['db']->fetchAssoc('SELECT * FROM users WHERE uid = ?',array($uid));
 
         if(!$activation||!$userdata) $app->abort(404);
-        if($activation['used'] != 0) $app->abort(403); //TODO better error message
+        if($activation['used'] != 0 || $activation['uid'] != $uid) $app->abort(403); //TODO better error message
 
         $date = date("Y-m-d H:i:s");
         var_dump($date);
@@ -31,7 +31,7 @@ class ActivationController implements ControllerProviderInterface
             $app['db']->update('users', array('active' => 1), array('uid'=>$uid));
             $app['db']->update('mailcodes', array('used' => 1), array('link'=>$code));
 
-            $app->redirect('/user');
+            return $app->redirect('/user');
         }
 
         $app->abort(500);
