@@ -7,6 +7,7 @@
  */
 
 namespace its\user;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 
 
@@ -15,31 +16,45 @@ class User implements UserInterface
     private $username;
     private $password;
     private $role;
+    private $mail;
 
-    public function __construct($username, $password, $role)
+    public function __construct($username, $password, $role, $mail)
     {
         $this->username = $username;
         $this->password = $password;
         $this->role = $role;
+        $this->mail = $mail;
     }
 
-    public function getRoles() {
+    public function getRoles()
+    {
         return $this->role;
     }
 
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function getSalt() {
+    public function getSalt()
+    {
         return $this->password;
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function eraseCredentials() {
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+
+
+    public function eraseCredentials()
+    {
         //
     }
 }

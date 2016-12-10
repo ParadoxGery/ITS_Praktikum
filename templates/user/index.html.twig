@@ -3,5 +3,10 @@
 {% block title 'user' %}
 {% block content %}
     <a class="btn btn-info" href="/user/logout">Logout</a>
-    Welcome to your new Silex Application!
+    <h3>{{ username }}</h3><h5>{{ mail }}</h5>
+    <form action="#" method="post">
+        {{ form_widget(form) }}
+
+        <input type="submit" name="submit" />
+    </form>
 {% endblock %}
