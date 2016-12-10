@@ -73,7 +73,7 @@ class UserController implements ControllerProviderInterface
     {
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/', 'its\controllers\UserController::index');
+        $controllers->match('/', 'its\controllers\UserController::index');
 
         return $controllers;
     }
