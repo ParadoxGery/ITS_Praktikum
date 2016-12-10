@@ -7,7 +7,7 @@
     <a class="btn btn-info" href="/user">User Bereich</a>
     <a class="btn btn-warning" href="/admin">Admin Bereich</a>
 
-    {% for alert in app.session.flashbag.get('not activated') %}
+    {% for alert in app.session.flashbag.get('not_activated') %}
         <div class="error-message">
             <div class="alert"><strong>{{ alert }}</strong></div>
         </div>
