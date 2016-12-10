@@ -21,7 +21,7 @@ class UserController implements ControllerProviderInterface
             $user = $token->getUser();
             var_dump($user->getIsActivated());
 
-            if ($user->getIsActivated != 1) {
+            if ($user->getIsActivated != "1") {
                 $app['session']->getFlashBag()->add('not_activated', 'please activate your account');
                 return $app->redirect('/');
             }
