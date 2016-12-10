@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class AdminController implements ControllerProviderInterface{
 
@@ -26,7 +27,12 @@ class AdminController implements ControllerProviderInterface{
                 'constraints' => new Email()
             ))
             ->add('password', PasswordType::class, array(
-                'constraints' => array(new NotBlank(), new Length(array('min' => 5)))
+                'constraints' => array(
+                    new Regex(array(
+                        'pattern' => '^(?=.{8})(?=.*[A-Z])(?=.*[a-z])(?=.*\d.*\d.*\d)(?=.*[^a-zA-Z\d].*[^a-zA-Z\d].*[^a-zA-Z\d])[-+%#a-zA-Z\d]+$',
+                        'message' => 'lenth:8,didgits:3,lower:1,upper:1,special:3| - + % # a-z A-Z 0-9'
+                    ))
+                )
             ))
             ->getForm();
 
@@ -66,7 +72,12 @@ class AdminController implements ControllerProviderInterface{
             ))
             ->add('password', PasswordType::class, array(
                 'required' => false,
-                'constraints' => array(new NotBlank(), new Length(array('min' => 5)))
+                'constraints' => array(
+                    new Regex(array(
+                        'pattern' => '^(?=.{8})(?=.*[A-Z])(?=.*[a-z])(?=.*\d.*\d.*\d)(?=.*[^a-zA-Z\d].*[^a-zA-Z\d].*[^a-zA-Z\d])[-+%#a-zA-Z\d]+$',
+                        'message' => 'lenth:8,didgits:3,lower:1,upper:1,special:3| - + % # a-z A-Z 0-9'
+                    ))
+                )
             ))
             ->getForm();
 		
