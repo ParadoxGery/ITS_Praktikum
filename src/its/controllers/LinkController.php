@@ -33,7 +33,7 @@ class LinkController implements ControllerProviderInterface
 
         if(strtotime($date)<strtotime($activation['expires'])){
             $app['db']->update('users', array('active' => 1), array('uid'=>$uid));
-            $app['db']->update('mailcodes', array('used' => 1), array('link'=>$code));
+            $app['db']->update('mailcodes', array('used' => 1), array('code'=>$code));
 
             return $app->redirect('/user');
         }
@@ -53,7 +53,7 @@ class LinkController implements ControllerProviderInterface
         $date = date("Y-m-d H:i:s");
 
         if(strtotime($date)<strtotime($activation['expires'])){
-            $app['db']->update('recoverycodes', array('used' => 1), array('link'=>$code));
+            $app['db']->update('recoverycodes', array('used' => 1), array('code'=>$code));
 
             $form = $app['form.factory']->createBuilder(FormType::class, array())
                 ->add('password', PasswordType::class, array(
