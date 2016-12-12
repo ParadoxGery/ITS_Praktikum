@@ -25,10 +25,7 @@ $app->get('/', function () use ($app) {
 
 $app->get('/login/{role}', function(Request $request,$role) use ($app) {
     if(!($role=="admin"||$role=="user")) $app->abort(404);
-    $params = array(
-        'error'         => $app['security.last_error']($request),
-        'last_username' => $app['session']->get('_security.last_username'),
-    );
+    $form = null;
     if($role == "user"){
         $form = $app['form.factory']->createBuilder(FormType::class, array())
             ->add('username', TextType::class, array(
@@ -53,10 +50,13 @@ $app->get('/login/{role}', function(Request $request,$role) use ($app) {
             $app['generateLink']->generatePasswordRecoveryLink($user['uid']);
             return $app->redirect('/');
         }
-        $params['form'] = $form;
     }
 
-    return $app['twig']->render($role.'/login.html.twig', $params);
+    return $app['twig']->render($role.'/login.html.twig', array(
+        'error'         => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username'),
+        'form'          => $form,
+    ));
 });
 
 $app->mount('/user', new UserController());
