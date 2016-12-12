@@ -1,14 +1,8 @@
 {% extends "layout.html.twig" %}
 
-{% block title 'user' %}
+{% block title 'recovery' %}
 {% block content %}
     <section>
-        <div class="row">
-            <a class="btn btn-info" href="/user/logout">Logout</a>
-        </div>
-        <div class="row">
-            <h3>{{ username }}</h3><h5>{{ mail }}</h5>
-        </div>
         <div class="row">
             <form action="#" method="post">
                 {{ form_widget(form) }}

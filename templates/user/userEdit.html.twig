@@ -1,11 +1,17 @@
 {% extends "layout.html.twig" %}
 
-{% block title 'admin' %}
+{% block title 'user' %}
 {% block content %}
-	<h3>{{username}}</h3>
-	<form action="#" method="post">
-		{{ form_widget(form) }}
+	<section>
+		<div class="row">
+			<h3>{{username}}</h3>
+		</div>
+		<div class="row">
+			<form action="#" method="post">
+                {{ form_widget(form) }}
 
-		<input type="submit" name="submit" />
-	</form>
+				<input type="submit" name="submit" />
+			</form>
+		</div>
+	</section>
 {% endblock %}

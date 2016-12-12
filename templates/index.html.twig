@@ -2,30 +2,66 @@
 
 {% block title 'index' %}
 {% block content %}
-    Welcome to your new Silex Application!
-
-    <a class="btn btn-info" href="/user">User Bereich</a>
-    <a class="btn btn-warning" href="/admin">Admin Bereich</a>
+    <section>
+        <div class="row">
+            <a class="btn btn-info" href="/user">User Bereich</a>
+            <a class="btn btn-warning" href="/admin">Admin Bereich</a>
+        </div>
+    </section>
 
     {% for alert in app.session.flashbag.get('not_activated') %}
-        <div class="error-message">
-            <div class="alert"><strong>{{ alert }}</strong></div>
-        </div>
+        <section>
+            <div class="row">
+                <div class="error-message">
+                    <div class="alert"><strong>{{ alert }}</strong></div>
+                </div>
+            </div>
+        </section>
     {% endfor %}
 
-    <h2>Mail Links</h2>
-    <table class="table table-striped">
-        <tr>
-            <th>link</th>
-            <th>uid</th>
-            <th>expires</th>
-        </tr>
-        {% for mailcode in mailcodes %}
-            <tr>
-                <td><a href="/activate/mail/{{ mailcode.uid }}/{{ mailcode.link }}">{{ mailcode.link }}</a></td>
-                <td>{{ mailcode.uid }}</td>
-                <td>{{ mailcode.expires }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    <section>
+        <div class="row">
+            <h2>Mail Links</h2>
+        </div>
+        <div class="row">
+            <table class="table table-striped">
+                <tr>
+                    <th>link</th>
+                    <th>uid</th>
+                    <th>expires</th>
+                </tr>
+                {% for mailcode in mailcodes %}
+                    <tr>
+                        <td><a href="/activate/mail/{{ mailcode.uid }}/{{ mailcode.code }}">{{ mailcode.code }}</a></td>
+                        <td>{{ mailcode.uid }}</td>
+                        <td>{{ mailcode.expires }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <div class="row">
+            <h2>Recovery Links</h2>
+        </div>
+        <div class="row">
+            <div class="row">
+                <table class="table table-striped">
+                    <tr>
+                        <th>link</th>
+                        <th>uid</th>
+                        <th>expires</th>
+                    </tr>
+                    {% for recoverycode in recoverycodes %}
+                        <tr>
+                            <td><a href="/recovery/{{ recoverycode.uid }}/{{ recoverycode.code }}">{{ recoverycode.code }}</a></td>
+                            <td>{{ recoverycode.uid }}</td>
+                            <td>{{ recoverycode.expires }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </section>
 {% endblock %}

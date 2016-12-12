@@ -1,11 +1,18 @@
 {% extends "layout.html.twig" %}
 
-{% block title 'index' %}
+{% block title 'login' %}
 {% block content %}
-    <form action="{{ path('admin_login_check') }}" method="post">
-        {{ error }}
-        <input type="text" name="_username" value="{{ last_username }}" />
-        <input type="password" name="_password" value="" />
-        <input type="submit" />
-    </form>
+    <section>
+        <h3>login</h3>
+        <div class="row">
+            <span class="alert-danger">{{ error }}</span>
+        </div>
+        <div class="row">
+            <form action="{{ path('admin_login_check') }}" method="post">
+                <input type="text" name="_username" value="{{ last_username }}" />
+                <input type="password" name="_password" value="" />
+                <input type="submit" />
+            </form>
+        </div>
+    </section>
 {% endblock %}

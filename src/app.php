@@ -1,6 +1,6 @@
 <?php
 
-use its\services\MailLinkGeneratorService;
+use its\services\LinkGeneratorService;
 use its\user\UserProvider;
 use Silex\Application;
 use Silex\Provider\AssetServiceProvider;
@@ -14,7 +14,6 @@ use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
-use Symfony\Component\HttpFoundation\Request;
 
 $app = new Application();
 $app->register(new ServiceControllerServiceProvider());
@@ -64,16 +63,8 @@ $app->register(new SecurityServiceProvider(), array(
 	),
 ));
 
-$app->get('/login/{role}', function(Request $request,$role) use ($app) {
-	if(!($role=="admin"||$role=="user")) $app->abort(404);
-    return $app['twig']->render($role.'/login.html.twig', array(
-        'error'         => $app['security.last_error']($request),
-        'last_username' => $app['session']->get('_security.last_username'),
-    ));
-});
-
-$app['generateMailLink'] = $app->factory(function ($app) {
-    return new MailLinkGeneratorService($app['db']);
+$app['generateLink'] = $app->factory(function ($app) {
+    return new LinkGeneratorService($app['db']);
 });
 
 return $app;
