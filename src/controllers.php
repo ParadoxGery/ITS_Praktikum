@@ -61,7 +61,7 @@ $app->match('/login/{role}', function(Request $request,$role) use ($app) {
 
 $app->mount('/user', new UserController());
 $app->mount('/admin', new AdminController());
-$app->mount('/activate', new LinkController());
+$app->mount('/link', new LinkController());
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {

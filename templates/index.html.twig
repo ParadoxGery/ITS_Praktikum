@@ -32,7 +32,7 @@
                 </tr>
                 {% for mailcode in mailcodes %}
                     <tr>
-                        <td><a href="/activate/mail/{{ mailcode.uid }}/{{ mailcode.code }}">{{ mailcode.code }}</a></td>
+                        <td><a href="/link/mail/{{ mailcode.uid }}/{{ mailcode.code }}">{{ mailcode.code }}</a></td>
                         <td>{{ mailcode.uid }}</td>
                         <td>{{ mailcode.expires }}</td>
                     </tr>
@@ -55,7 +55,7 @@
                     </tr>
                     {% for recoverycode in recoverycodes %}
                         <tr>
-                            <td><a href="/recovery/{{ recoverycode.uid }}/{{ recoverycode.code }}">{{ recoverycode.code }}</a></td>
+                            <td><a href="/link/recovery/{{ recoverycode.uid }}/{{ recoverycode.code }}">{{ recoverycode.code }}</a></td>
                             <td>{{ recoverycode.uid }}</td>
                             <td>{{ recoverycode.expires }}</td>
                         </tr>
