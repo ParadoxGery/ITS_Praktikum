@@ -51,11 +51,10 @@ $app->get('/login/{role}', function(Request $request,$role) use ($app) {
             return $app->redirect('/');
         }
     }
-
     return $app['twig']->render($role.'/login.html.twig', array(
         'error'         => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
-        'form'          => $form,
+        'form'          => $form->createView(),
     ));
 });
 
