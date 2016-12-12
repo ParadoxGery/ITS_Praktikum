@@ -81,7 +81,7 @@ class LinkController implements ControllerProviderInterface
             }
 
             return $app['twig']->render('user/recovery.html.twig',array(
-                'form' => $form,
+                'form' => $form->createView(),
             ));
         }
 
