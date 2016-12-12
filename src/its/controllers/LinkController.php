@@ -53,8 +53,6 @@ class LinkController implements ControllerProviderInterface
         $date = date("Y-m-d H:i:s");
 
         if(strtotime($date)<strtotime($activation['expires'])){
-            $app['db']->update('recoverycodes', array('used' => 1), array('code'=>$code));
-
             $form = $app['form.factory']->createBuilder(FormType::class, array())
                 ->add('password', PasswordType::class, array(
                     'constraints' => array(
@@ -69,6 +67,7 @@ class LinkController implements ControllerProviderInterface
             $form->handleRequest($request);
 
             if ($form->isValid()){
+                $app['db']->update('recoverycodes', array('used' => 1), array('code'=>$code));
                 $data = $form->getData();
                 $updateData = array(
                     'password' => password_hash($data['password'],PASSWORD_DEFAULT),
