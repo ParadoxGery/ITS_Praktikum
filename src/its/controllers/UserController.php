@@ -58,7 +58,7 @@ class UserController implements ControllerProviderInterface
                 $updateData['mail'] = $data['mail'];
                 $updateData['active'] = 0;
                 $userdata = $app['db']->fetchAssoc('SELECT * FROM users WHERE username = ?',array($user->getUsername()));
-                $app['generateMailLink']->generateMailLink($userdata['uid']);
+                $app['generateLink']->generateMailLink($userdata['uid']);
             }
             if($data['password'] != null){
                 $updateData['password'] = password_hash($data['password'],PASSWORD_DEFAULT);

@@ -51,7 +51,7 @@ class AdminController implements ControllerProviderInterface{
             ));
 
             $userdata = $app['db']->fetchAssoc('SELECT * FROM users WHERE username = ?',array($data['username']));
-            $app['generateMailLink']->generateMailLink($userdata['uid']);
+            $app['generateLink']->generateMailLink($userdata['uid']);
 
             return $app->redirect('/admin');
         }
@@ -93,7 +93,7 @@ class AdminController implements ControllerProviderInterface{
 			if($data['mail'] != null){
 				$updateData['mail'] = $data['mail'];
 				$updateData['active'] = 0;
-				$app['generateMailLink']->generateMailLink($uid);
+				$app['generateLink']->generateMailLink($uid);
 			}
 			if($data['password'] != null){
 				$updateData['password'] = password_hash($data['password'],PASSWORD_DEFAULT); 
