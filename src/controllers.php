@@ -23,7 +23,7 @@ $app->get('/', function () use ($app) {
     ));
 });
 
-$app->get('/login/{role}', function(Request $request,$role) use ($app) {
+$app->match('/login/{role}', function(Request $request,$role) use ($app) {
     if(!($role=="admin"||$role=="user")) $app->abort(404);
     $params = array(
         'error'         => $app['security.last_error']($request),
