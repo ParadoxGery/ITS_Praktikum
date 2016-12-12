@@ -41,7 +41,7 @@ class LinkController implements ControllerProviderInterface
         return $app->abort(403,"expired");
     }
 
-    public function revocerPassword(Application $app, Request $request, $uid, $code){
+    public function recoverPassword(Application $app, Request $request, $uid, $code){
         $userdata = $app['db']->fetchAssoc('SELECT * FROM users WHERE uid = ?',array($uid));
 
         if(!$userdata) $app->abort(404,"no user found");
