@@ -48,7 +48,7 @@ $app->match('/login/{role}', function(Request $request,$role) use ($app) {
 
         if ($form->isValid()) {
             $data = $form->getData();
-            $user = $app['db']->fetchAssoc('SELECT * FROM users WHERE username = ? AND mail = ?', array($data['username'],$data['mail']));
+            $user = $app['db']->fetchAssoc('SELECT * FROM users WHERE username = ? AND mail = ? AND active = 1', array($data['username'],$data['mail']));
             if(!$user) $app->abort(403); //TODO better error message
             $app['generateLink']->generatePasswordRecoveryLink($user['uid']);
             return $app->redirect('/');
